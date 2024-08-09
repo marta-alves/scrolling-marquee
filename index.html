@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infinite Looping</title>
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Poppins";
+            background-color: rgb(40, 31, 31);
+            color: white;
+        }
+
+        .hero-section {
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 50vh;
+            white-space: nowrap;
+            font-weight: 100;
+            font-size: 9vw;
+            letter-spacing: 5px;
+        }
+
+        .item {
+            position: absolute;
+            white-space: nowrap;
+        }
+
+        .image-section {
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 50vh;
+            margin-top: 20px;
+        }
+
+        .images-wrapper {
+            display: flex;
+            gap: 2rem;
+            position: absolute;
+            padding-right: 2rem;
+        }
+
+        .image-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            width: 300px;
+            height: 300px;
+        }
+
+        .image-container img {
+            object-fit: cover;
+            width: 100%;
+            height: 100%;
+            border-radius: 2%;
+        }
+    </style>
+</head>
+<body>
+    <section class="hero-section">
+        <div class="item">You know you're in love when you can't fall asleep&nbsp;</div>
+        <div class="item">because reality is finally better than your dreams.&nbsp;</div>
+    </section>
+    <section class="image-section">
+        <div class="images-wrapper">
+            <div class="image-container"><img src="https://i.pinimg.com/736x/2e/ef/a4/2eefa43c510173a4ed72ac331c5722c7.jpg" alt="Image 1"></div>
+            <div class="image-container"><img src="https://i.pinimg.com/736x/51/87/17/51871709e92a4e4d130e48cfd25bb7d5.jpg" alt="Image 2"></div>
+            <div class="image-container"><img src="https://i.pinimg.com/736x/75/41/74/7541747765957b91af939f7c40005278.jpg" alt="Image 3"></div>
+            <div class="image-container"><img src="https://i.pinimg.com/474x/5f/b0/bc/5fb0bc4340d50dfecb7d7ae3188f0e9d.jpg" alt="Image 4"></div>
+            <div class="image-container"><img src="https://i.pinimg.com/474x/d2/a2/2b/d2a22beaa5a8cf2a129bad0ae7bf7aa8.jpg" alt="Image 5"></div>
+        </div>
+        <div class="images-wrapper">
+            <div class="image-container"><img src="https://i.pinimg.com/474x/fe/a0/6c/fea06c6bc750e4dfa9656c94583f1e75.jpg" alt="Image 6"></div>
+            <div class="image-container"><img src="https://i.pinimg.com/736x/e7/ae/6e/e7ae6e2fdf1d41b78a9f410a41114639.jpg" alt="Image 7"></div>
+            <div class="image-container"><img src="https://i.pinimg.com/736x/9f/86/11/9f8611dadf17df9548ce954ab917f5ea.jpg" alt="Image 8"></div>
+            <div class="image-container"><img src="https://i.pinimg.com/736x/54/b4/cd/54b4cd3341cd11c3646ad1463256a812.jpg" alt="Image 9"></div>
+            <div class="image-container"><img src="https://i.pinimg.com/736x/34/21/4c/34214cafda5c120555dd130918b7a526.jpg" alt="Image 10"></div>
+        </div>
+    </section>
+    
+    <script>
+        class LoopingElement {
+            constructor(element, initialPosition, speed) {
+                this.element = element;
+                this.position = initialPosition;
+                this.speed = speed;
+                this.render();
+            }
+
+            animate() {
+                this.position -= this.speed;
+                if (this.position <= -100) {
+                    this.position += 200;
+                }
+                this.element.style.transform = `translateX(${this.position}%)`;
+            }
+
+            render() {
+                this.animate();
+                requestAnimationFrame(() => this.render());
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            let textItems = document.querySelectorAll(".hero-section .item");
+            let imageWrappers = document.querySelectorAll(".image-section .images-wrapper");
+
+            new LoopingElement(textItems[0], 0, 0.1);
+            new LoopingElement(textItems[1], 100, 0.1);
+
+            new LoopingElement(imageWrappers[0], 0, 0.1);
+            new LoopingElement(imageWrappers[1], 100, 0.1);
+        });
+
+
+
+     
+       
+    </script>
+</body>
+</html>
